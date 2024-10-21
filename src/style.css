@@ -35,12 +35,15 @@ button{
     height: max-content;
 }
 
+button:hover{
+    cursor: pointer;
+}
 .listHeader{
     color: white;
     font-size: 5rem;
 }
 
-button::after{
+.headerButton::after{
     content: '';
     position: absolute;
     bottom: 0;
@@ -51,7 +54,7 @@ button::after{
     transition: background-color 0.3s ease;
 }
 
-button:hover::after {
+.headerButton:hover::after {
     background-color: white; 
 }
 

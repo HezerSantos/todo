@@ -10,8 +10,9 @@ const createInput = (id) => {
     input.setAttribute("id", id);
     return input;
 }
-const createButton = (content) => {
+const createButton = (content, type) => {
     const button =  document.createElement("button");
+    button.setAttribute("type", type);
     button.textContent = content;
     button.style.cssText = `
     color: white;
@@ -86,7 +87,7 @@ const createContainer = () => {
     const descriptionContainer = createDiv();
 
     const buttonContainer = createDiv();
-    const makeListButton = createButton("Create List");
+    const makeListButton = createButton("Create List", "button");
 
     styleButtonContainer(buttonContainer);
     buttonContainer.appendChild(makeListButton);

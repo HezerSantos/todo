@@ -1,3 +1,4 @@
+import { resetContainer } from "./todoObject";
 const todoContainer = document.querySelector(".todoContainer");
 const createListButton = document.querySelector("#createList");
 
@@ -74,7 +75,7 @@ const styleButtonContainer = (div) => {
     `;
 }
 
-const createContainer = () => {
+const createListContainer = () => {
     const form = createForm();
 
     const titleInput = createInput('title');
@@ -102,16 +103,19 @@ const createContainer = () => {
     descriptionContainer.append(descriptionLabel, descriptionInput);
 
     form.append(titleContainer, descriptionContainer, buttonContainer);
-
-    return form;
+    
+    todoContainer.appendChild(form);
 }
+
+const addNewList = () => {
+    
+}
+
 
 const createList = () => {
     createListButton.addEventListener('click', () => {
-        if (!todoContainer.firstChild){
-            const newList = createContainer();
-            todoContainer.appendChild(newList);
-        }
+        resetContainer();
+        createListContainer();
     })
 }
 

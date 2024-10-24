@@ -1,5 +1,7 @@
 import './style.css'
-import { createList } from './createList';
+import { createList, resetContainer } from './createList';
+import { addToList } from './addToList';
+import { myLists } from './myList';
 
 if (module.hot) {
     module.hot.accept();
@@ -7,3 +9,5 @@ if (module.hot) {
 
 
 createList();
+addToList();
+myLists();

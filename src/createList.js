@@ -1,4 +1,4 @@
-import { resetContainer } from "./todoObject";
+import { resetContainer, toDoList } from "./todoObject";
 const todoContainer = document.querySelector(".todoContainer");
 const createListButton = document.querySelector("#createList");
 
@@ -9,6 +9,7 @@ const createInput = (id) => {
     const input = document.createElement("input");
     input.setAttribute("type", "text");
     input.setAttribute("id", id);
+    input.setAttribute('required', '')
     return input;
 }
 const createButton = (content, type) => {
@@ -90,6 +91,8 @@ const createListContainer = () => {
     const buttonContainer = createDiv();
     const makeListButton = createButton("Create List", "button");
 
+    
+
     styleButtonContainer(buttonContainer);
     buttonContainer.appendChild(makeListButton);
 
@@ -99,16 +102,34 @@ const createListContainer = () => {
     styleInput(titleInput);
     styleInput(descriptionInput);
 
+    
+    
     titleContainer.append(titleLabel, titleInput);
     descriptionContainer.append(descriptionLabel, descriptionInput);
 
     form.append(titleContainer, descriptionContainer, buttonContainer);
     
+    
     todoContainer.appendChild(form);
+
+    addNewList(titleInput, descriptionInput, makeListButton);
+
+    
 }
 
-const addNewList = () => {
-    
+const listContainer = [];
+
+const addNewList = (titleInput, descriptionInput, button) => {
+    button.addEventListener('click', () => {
+        if (!titleInput.value || !descriptionInput.value){
+            return;
+        } else {
+            const newList = toDoList(titleInput.value, descriptionInput.value);
+            listContainer.push(newList);
+        }
+        titleInput.value = '';
+        descriptionInput.value = '';
+    })
 }
 
 
@@ -119,4 +140,4 @@ const createList = () => {
     })
 }
 
-export {createList}
+export {createList, listContainer}

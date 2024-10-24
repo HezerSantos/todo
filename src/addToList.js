@@ -10,6 +10,7 @@ const createInput = (id, type) => {
     const input = document.createElement("input");
     input.setAttribute("type", type);
     input.setAttribute("id", id);
+    input.setAttribute('required', '')
     input.style.cssText = `
         width: 100%;
         height: 50%;

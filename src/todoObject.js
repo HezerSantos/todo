@@ -5,4 +5,10 @@ const resetContainer = () => {
     }
 }
 
-export {resetContainer}
+const toDoList = (title, description) => {
+    const list = [];
+    return {title: title, description: description, list: list};
+}
+
+
+export {resetContainer, toDoList}

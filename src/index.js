@@ -1,5 +1,5 @@
 import './style.css'
-import { createList, resetContainer } from './createList';
+import { createList } from './createList';
 import { addToList } from './addToList';
 import { myLists } from './myList';
 

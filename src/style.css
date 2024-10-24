@@ -71,5 +71,26 @@ button:hover{
     height: 100%;
     width: 50%;
     border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
     overflow: auto;
+}
+
+.listItem::before{
+    content: ''; 
+    box-shadow: none; 
+    transition: box-shadow 0.3s; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: solid 1px black;
+}
+
+.listItem:hover::before{
+    box-shadow: 5px 5px 5px 5px grey;
+    border: none;
 }

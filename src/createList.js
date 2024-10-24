@@ -5,11 +5,15 @@ const createListButton = document.querySelector("#createList");
 const createForm = () => {
     return document.createElement("form");
 }
-const createInput = (id) => {
+const createInput = (id, length = true) => {
     const input = document.createElement("input");
     input.setAttribute("type", "text");
     input.setAttribute("id", id);
-    input.setAttribute('required', '')
+    input.setAttribute("maxLength", "20");
+    input.setAttribute('required', '');
+    if (!length){
+        input.setAttribute("maxLength", "");
+    }
     return input;
 }
 const createButton = (content, type) => {
@@ -82,7 +86,7 @@ const createListContainer = () => {
     const titleInput = createInput('title');
     const titleLabel = createLabel('title');
 
-    const descriptionInput = createInput('description');
+    const descriptionInput = createInput('description', false);
     const descriptionLabel = createLabel('description');
 
     const titleContainer = createDiv();
@@ -117,7 +121,7 @@ const createListContainer = () => {
     
 }
 
-const listContainer = [];
+let listContainer = [];
 
 const addNewList = (titleInput, descriptionInput, button) => {
     button.addEventListener('click', () => {

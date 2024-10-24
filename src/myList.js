@@ -32,14 +32,50 @@ const viewListButton = () => {
     margin-left: auto;
     `;
 
-    return button
+    return button;
 }
+
+const removeListButton = () => {
+    const button = document.createElement("button");
+    button.textContent = 'Remove List';
+    button.style.cssText = `
+    height: 90%;
+    width: 15%;
+    color: white;
+    background-color: rgb(184, 83, 83);
+    font-size: .8rem;
+    margin-left: 5%;
+    `;
+
+    return button;
+}
+
+const deleteListFromMemory = (title) => {
+    listContainer.forEach((list) => {
+        if (list.title === title){
+            listContainer.push(list);
+            console.log(listContainer);
+            //listContainer.pop();
+            //console.log(listContainer);
+        };
+    });
+}
+
+const remove = (button, container, listTitle) => {
+    button.addEventListener('click', () => {
+        deleteListFromMemory(listTitle);
+        todoContainer.removeChild(container);
+    })
+}
+
 const showLists = () => {
     listContainer.forEach((list) => {
         const div = createDiv();
         const button = viewListButton();
+        const removeButton = removeListButton();
+        remove(removeButton, div, list.title);
         div.textContent = list.title;
-        div.appendChild(button);
+        div.append(button, removeButton);
         todoContainer.appendChild(div);
     })
 }

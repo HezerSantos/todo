@@ -136,6 +136,9 @@ const addNewList = (titleInput, descriptionInput, button) => {
     })
 }
 
+const compact = () => {
+    listContainer = listContainer.filter(item => item !== null);
+}
 
 const createList = () => {
     createListButton.addEventListener('click', () => {
@@ -144,4 +147,4 @@ const createList = () => {
     })
 }
 
-export {createList, listContainer}
+export {createList, listContainer, compact}

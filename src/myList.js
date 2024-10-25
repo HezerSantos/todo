@@ -1,5 +1,5 @@
 import { resetContainer } from "./todoObject";
-import { listContainer } from "./createList";
+import { listContainer, compact } from "./createList";
 const myListsButton = document.querySelector("#myLists")
 const todoContainer = document.querySelector(".todoContainer");
 
@@ -50,13 +50,15 @@ const removeListButton = () => {
     return button;
 }
 
+const removeFromListContainer = (element) => {
+    let index = listContainer.indexOf(element);
+    listContainer[index] = null;
+}
+
 const deleteListFromMemory = (title) => {
     listContainer.forEach((list) => {
         if (list.title === title){
-            listContainer.push(list);
-            console.log(listContainer);
-            //listContainer.pop();
-            //console.log(listContainer);
+            removeFromListContainer(list);
         };
     });
 }
@@ -82,8 +84,10 @@ const showLists = () => {
 
 const myLists = () => {
     myListsButton.addEventListener('click', () => {
+        compact();
         resetContainer();
-        showLists();
+        showLists(); 
+        console.log(listContainer) ;
     })
 }
 

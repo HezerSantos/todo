@@ -10,5 +10,8 @@ const toDoList = (title, description) => {
     return {title: title, description: description, list: list};
 }
 
+const toDoItem = (title, description, dueDate, priority) => {
+    return {title: title, description: description, dueDate: dueDate, priority: priority}
+}
 
 export {resetContainer, toDoList}

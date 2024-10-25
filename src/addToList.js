@@ -75,10 +75,18 @@ const styleFormContainer = (form) => {
     `;
 }
 
-const createOption = (content) => {
-    const option = document.createElement("option");
-    option.textContent = content;
-    return option;
+const createOption = (content, hidden = false) => {
+    if (!hidden){
+        const option = document.createElement("option");
+        option.textContent = content;
+        return option;
+    } else {
+        const option = document.createElement("option");
+        option.textContent = content;
+        option.setAttribute("selected", "");
+        option.setAttribute("disabled", "");
+        return option;
+    }
 }
 
 const addToListContainer = () => {
@@ -101,13 +109,16 @@ const addToListContainer = () => {
     dueDateContainer.append(dueDateLabel, dueDateInput);
 
     const priorityContainer = createDiv();
-    const priorityInput = createInput('priority');
+    const prioritySelect = createSelect('priority', 'priority');
     const priorityLabel = createLabel('priority');
-    priorityContainer.append(priorityLabel, priorityInput);
+    createPriorities(prioritySelect);
+    priorityContainer.append(priorityLabel, prioritySelect);
 
     const myListsContainer = createDiv();
     const myListSelect = createSelect('list', 'myLists');
     const myListLabel = createLabel('list');
+    const defaultOption = createOption("My Lists", true)
+    myListSelect.appendChild(defaultOption);
     updateSelect(myListSelect);
     myListsContainer.append(myListLabel, myListSelect);
 
@@ -120,6 +131,15 @@ const addToListContainer = () => {
     form.append(titleContainer, descriptionContainer, dueDateContainer, priorityContainer, myListsContainer, addButtonContainer);
 
     todoContainer.appendChild(form);
+}
+
+const createPriorities = (prioritySelect) => {
+    const defaultOption = createOption('Priority', true);
+    const lowP = createOption('Low');
+    const medP = createOption('Medium');
+    const higP = createOption('High');
+    prioritySelect.append(defaultOption, lowP, medP, higP);
+
 }
 
 const updateSelect = (selectInput) => {

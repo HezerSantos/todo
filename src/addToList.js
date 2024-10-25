@@ -1,3 +1,4 @@
+import { listContainer, compact} from "./createList";
 import { resetContainer } from "./todoObject";
 
 const todoContainer = document.querySelector(".todoContainer");
@@ -74,6 +75,12 @@ const styleFormContainer = (form) => {
     `;
 }
 
+const createOption = (content) => {
+    const option = document.createElement("option");
+    option.textContent = content;
+    return option;
+}
+
 const addToListContainer = () => {
     const form = createForm();
     styleFormContainer(form);
@@ -101,6 +108,7 @@ const addToListContainer = () => {
     const myListsContainer = createDiv();
     const myListSelect = createSelect('list', 'myLists');
     const myListLabel = createLabel('list');
+    updateSelect(myListSelect);
     myListsContainer.append(myListLabel, myListSelect);
 
     const addButtonContainer = createDiv();
@@ -114,8 +122,14 @@ const addToListContainer = () => {
     todoContainer.appendChild(form);
 }
 
-
-
+const updateSelect = (selectInput) => {
+    if (listContainer.length !== 0){
+        listContainer.forEach(list => {
+            const option = createOption(list.title);
+            selectInput.append(option);
+        })
+    } 
+}
 
 
 
@@ -123,6 +137,7 @@ const addToListContainer = () => {
 
 const addToList = () => {
     addToListButton.addEventListener('click', () => {
+        compact();
         resetContainer();
         addToListContainer();
     })

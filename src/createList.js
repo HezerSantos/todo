@@ -127,10 +127,21 @@ const addNewList = (titleInput, descriptionInput, button) => {
     button.addEventListener('click', () => {
         if (!titleInput.value || !descriptionInput.value){
             return;
-        } else {
+        }
+
+        if (listContainer.length == 0){
             const newList = toDoList(titleInput.value, descriptionInput.value);
             listContainer.push(newList);
-        }
+        } else {
+            if (isDuplicate(titleInput) === 0){
+                const newList = toDoList(titleInput.value, descriptionInput.value);
+                listContainer.push(newList);
+            } else {
+                const newList = toDoList(`${titleInput.value} (${isDuplicate(titleInput) + 1})`, descriptionInput.value);
+                listContainer.push(newList);
+            }
+        };
+  
         titleInput.value = '';
         descriptionInput.value = '';
     })
@@ -138,6 +149,17 @@ const addNewList = (titleInput, descriptionInput, button) => {
 
 const compact = () => {
     listContainer = listContainer.filter(item => item !== null);
+}
+
+const isDuplicate = (title) => {
+    let listCounter = 0;
+    listContainer.forEach(item => {
+        let indexZero = item.title.split('(');
+        if (indexZero[0].trim() === title.value){
+            listCounter ++;
+        }
+    })
+    return listCounter;
 }
 
 const createList = () => {

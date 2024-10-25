@@ -65,6 +65,7 @@ const deleteListFromMemory = (title) => {
 
 const remove = (button, container, listTitle) => {
     button.addEventListener('click', () => {
+        compact();
         deleteListFromMemory(listTitle);
         todoContainer.removeChild(container);
     })
@@ -87,7 +88,7 @@ const myLists = () => {
         compact();
         resetContainer();
         showLists(); 
-        console.log(listContainer) ;
+        //console.log(listContainer) ;
     })
 }
 

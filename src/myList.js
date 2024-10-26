@@ -54,9 +54,11 @@ const removeFromListContainer = (element, item, toDolist = null) => {
     if (item){
         let index = toDolist.indexOf(element)
         toDolist[index] = null;
+        compact();
     } else {
         let index = listContainer.indexOf(element);
         listContainer[index] = null;
+        compact();
     }
 }
 
@@ -80,7 +82,6 @@ const deleteListFromMemory = (title, item) => {
 
 const remove = (button, container, listTitle, item = false) => {
     button.addEventListener('click', () => {
-        compact();
         deleteListFromMemory(listTitle, item);
         todoContainer.removeChild(container);
     })
@@ -88,6 +89,7 @@ const remove = (button, container, listTitle, item = false) => {
 
 const viewList = (title, button) => {
     button.addEventListener('click', () => {
+        compact();
         resetContainer();
         listContainer.forEach(item => {
             if (item.title === title){
@@ -149,6 +151,17 @@ const showLists = () => {
     })
 }
 
+const createListItem = (list) => {
+    const div = createDiv();
+    const button = viewListButton();
+    const removeButton = removeListButton();
+    viewList(list.title, button);
+    remove(removeButton, div, list.title);
+    div.textContent = list.title;
+    div.append(button, removeButton);
+    todoContainer.appendChild(div);
+}
+
 const myLists = () => {
     myListsButton.addEventListener('click', () => {
         compact();
@@ -157,4 +170,4 @@ const myLists = () => {
     })
 }
 
-export {myLists}
+export {myLists, createListItem}

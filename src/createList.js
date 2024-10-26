@@ -151,6 +151,8 @@ const addNewList = (titleInput, descriptionInput, button) => {
             }
         };
   
+        localStorage.setItem('ListContainer', JSON.stringify(listContainer));
+
         titleInput.value = '';
         descriptionInput.value = '';
     })
@@ -161,6 +163,8 @@ const compact = () => {
     listContainer.forEach(item => {
         item.list = item.list.filter(item => item !== null);
     })
+
+    localStorage.setItem('ListContainer', JSON.stringify(listContainer));
 }
 
 const isDuplicate = (title) => {
@@ -176,9 +180,6 @@ const isDuplicate = (title) => {
 
 const createList = () => {
     createListButton.addEventListener('click', () => {
-        const listContainers = localStorage.setItem('ListContainer', JSON.stringify(listContainer));
-        const store = localStorage.getItem('ListContainer');
-        console.log(JSON.parse(store));
         resetContainer();
         createListContainer();
     })

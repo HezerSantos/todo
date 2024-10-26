@@ -154,7 +154,6 @@ const myLists = () => {
         compact();
         resetContainer();
         showLists(); 
-        //console.log(listContainer) ;
     })
 }
 

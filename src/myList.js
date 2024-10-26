@@ -50,25 +50,90 @@ const removeListButton = () => {
     return button;
 }
 
-const removeFromListContainer = (element) => {
-    let index = listContainer.indexOf(element);
-    listContainer[index] = null;
+const removeFromListContainer = (element, item, toDolist = null) => {
+    if (item){
+        let index = toDolist.indexOf(element)
+        toDolist[index] = null;
+    } else {
+        let index = listContainer.indexOf(element);
+        listContainer[index] = null;
+    }
 }
 
-const deleteListFromMemory = (title) => {
-    listContainer.forEach((list) => {
-        if (list.title === title){
-            removeFromListContainer(list);
-        };
-    });
+const deleteListFromMemory = (title, item) => {
+    if (item){
+        listContainer.forEach((toDolist) => {
+            toDolist.list.forEach(todoItem => {
+                if (todoItem.title === title){
+                    removeFromListContainer(todoItem, item, toDolist.list);
+                }
+            })
+        });
+    } else {
+        listContainer.forEach((list) => {
+            if (list.title === title){
+                removeFromListContainer(list, item);
+            };
+        });
+    }
 }
 
-const remove = (button, container, listTitle) => {
+const remove = (button, container, listTitle, item = false) => {
     button.addEventListener('click', () => {
         compact();
-        deleteListFromMemory(listTitle);
+        deleteListFromMemory(listTitle, item);
         todoContainer.removeChild(container);
     })
+}
+
+const viewList = (title, button) => {
+    button.addEventListener('click', () => {
+        resetContainer();
+        listContainer.forEach(item => {
+            if (item.title === title){
+                item.list.forEach(e => {
+                    createItem(e);
+                })
+            };
+        });
+    })    
+}
+
+const createDiv2 = () => {
+    return document.createElement("div")
+}
+const createItem = (e) => {
+    const todoItemContainer = createDiv2();
+
+    const titleContainer = createDiv2();
+    titleContainer.classList.add('titleContainer');
+    titleContainer.textContent = `Title: ${e.title}`;
+
+    const descriptionContainer = createDiv2();
+    descriptionContainer.classList.add('descriptionContainer');
+    descriptionContainer.textContent = `Description: ${e.description}`;
+
+    const dueDateContainer = createDiv2();
+    dueDateContainer.classList.add('dueDateContainer');
+    dueDateContainer.textContent = `Due Date: ${e.dueDate}`;
+
+    const priorityContainer = createDiv2();
+    priorityContainer.classList.add('priorityContainer');
+    priorityContainer.textContent = `Priority: ${e.priority}`;
+
+    const buttonContainer = createDiv2();
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("removeItemButton");
+    deleteButton.textContent = 'Delete item'
+    buttonContainer.classList.add('buttonContainer');
+    buttonContainer.appendChild(deleteButton);
+    remove(deleteButton, todoItemContainer, e.title, true);
+
+    todoItemContainer.classList = 'todoItem';
+
+    todoItemContainer.append(titleContainer, descriptionContainer, dueDateContainer, priorityContainer, buttonContainer);
+
+    todoContainer.appendChild(todoItemContainer);
 }
 
 const showLists = () => {
@@ -76,6 +141,7 @@ const showLists = () => {
         const div = createDiv();
         const button = viewListButton();
         const removeButton = removeListButton();
+        viewList(list.title, button);
         remove(removeButton, div, list.title);
         div.textContent = list.title;
         div.append(button, removeButton);

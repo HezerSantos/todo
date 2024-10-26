@@ -14,4 +14,4 @@ const toDoItem = (title, description, dueDate, priority) => {
     return {title: title, description: description, dueDate: dueDate, priority: priority}
 }
 
-export {resetContainer, toDoList}
+export {resetContainer, toDoList, toDoItem}

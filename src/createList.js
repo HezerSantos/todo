@@ -1,4 +1,4 @@
-import { resetContainer, toDoList } from "./todoObject";
+import { resetContainer, toDoItem, toDoList } from "./todoObject";
 const todoContainer = document.querySelector(".todoContainer");
 const createListButton = document.querySelector("#createList");
 
@@ -123,6 +123,11 @@ const createListContainer = () => {
 
 let listContainer = [];
 
+const newList = toDoList('My List', 'w');
+const x = toDoItem('Get Monies', "Get yo monies Get yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo monies Get yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo moniesGet yo monies", 'Now', 'High');
+newList.list.push(x);
+listContainer.push(newList);
+
 const addNewList = (titleInput, descriptionInput, button) => {
     button.addEventListener('click', () => {
         if (!titleInput.value || !descriptionInput.value){
@@ -149,6 +154,9 @@ const addNewList = (titleInput, descriptionInput, button) => {
 
 const compact = () => {
     listContainer = listContainer.filter(item => item !== null);
+    listContainer.forEach(item => {
+        item.list = item.list.filter(item => item !== null);
+    })
 }
 
 const isDuplicate = (title) => {

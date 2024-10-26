@@ -1,5 +1,5 @@
 import { listContainer, compact} from "./createList";
-import { resetContainer } from "./todoObject";
+import { resetContainer, toDoItem } from "./todoObject";
 
 const todoContainer = document.querySelector(".todoContainer");
 const addToListButton = document.querySelector("#addToList");
@@ -131,6 +131,8 @@ const addToListContainer = () => {
     form.append(titleContainer, descriptionContainer, dueDateContainer, priorityContainer, myListsContainer, addButtonContainer);
 
     todoContainer.appendChild(form);
+
+    createToDo(titleInput, descriptionInput, dueDateInput, prioritySelect, myListSelect, addButton);
 }
 
 const createPriorities = (prioritySelect) => {
@@ -151,7 +153,19 @@ const updateSelect = (selectInput) => {
     } 
 }
 
-
+const createToDo = (title, description, duedate, priority, list, button) => {
+    button.addEventListener('click', () => {
+        if (priority.value === 'Priority' || list.value === 'My Lists'){
+            alert('Either priority or list was not selected');
+        } else {
+            listContainer.forEach(item => {
+                if (item.title == list.value){
+                    item.list.push(toDoItem(title.value, description.value, duedate.value, priority.value))
+                };
+            });
+        };
+    });
+}
 
 
 
